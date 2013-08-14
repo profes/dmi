@@ -6,11 +6,23 @@ buildscript {
         classpath 'com.android.tools.build:gradle:0.5.+'
     }
 }
+// apply plugin: 'androidannotations'
 apply plugin: 'android'
 
 repositories {
     mavenCentral()
+
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
+
+ext.androidAnnotationsVersion = '3.0-SNAPSHOT';
+
+configurations {
+    apt
+}
+
 
 android {
     compileSdkVersion 18
@@ -22,6 +34,42 @@ android {
     }
 }
 
+
 dependencies {
     compile 'com.android.support:support-v4:13.0.+'
+    compile 'com.google.android.gms:play-services:3.2.25'
+    apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
+    compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
+}
+
+def getSourceSetName(variant) {
+    return new File(variant.dirName).getName();
+}
+//!!!! DIFFERENT  is here!!!!
+// android.applicationVariants.each to  android.applicationVariants.all
+android.applicationVariants.all { variant ->
+    def aptOutputDir = project.file("build/source/apt")
+    def aptOutput = new File(aptOutputDir, variant.dirName)
+    println "****************************"
+    println "variant: ${variant.name}"
+    println "manifest:  ${variant.processResources.manifestFile}"
+    println "aptOutput:  ${aptOutput}"
+    println "****************************"
+
+    android.sourceSets[getSourceSetName(variant)].java.srcDirs += aptOutput.getPath()
+
+    variant.javaCompile.options.compilerArgs += [
+            '-processorpath', configurations.apt.getAsPath(),
+            //'-processor', 'org.androidannotations.AndroidAnnotationProcessor',
+            '-AandroidManifestFile=' + variant.processResources.manifestFile,
+            '-s', aptOutput
+    ]
+
+    variant.javaCompile.source = variant.javaCompile.source.filter { p ->
+        return !p.getPath().startsWith(aptOutputDir.getPath())
+    }
+
+    variant.javaCompile.doFirst {
+        aptOutput.mkdirs()
+    }
 }

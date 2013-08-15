@@ -10,6 +10,7 @@ buildscript {
 apply plugin: 'android'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 
     maven {
@@ -40,6 +41,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:3.2.25'
     apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
     compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
+    compile 'com.google:volley:1.0.0'
 }
 
 def getSourceSetName(variant) {

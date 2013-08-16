@@ -22,7 +22,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // below) with the page number as its lone argument.
         switch (position) {
             case 0:
-                Fragment fragment = new DummySectionFragment_();
+                Fragment fragment = new CitySectionFragment_();
                 Bundle args = new Bundle();
                 args.putInt(CitySectionFragment.ARG_SECTION_NUMBER, position + 1);
                 fragment.setArguments(args);

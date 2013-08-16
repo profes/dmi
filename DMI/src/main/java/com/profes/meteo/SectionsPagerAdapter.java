@@ -18,19 +18,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a DummySectionFragment (defined as a static inner class
+        // Return a CitySectionFragment (defined as a static inner class
         // below) with the page number as its lone argument.
         switch (position) {
             case 0:
                 Fragment fragment = new DummySectionFragment_();
                 Bundle args = new Bundle();
-                args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+                args.putInt(CitySectionFragment.ARG_SECTION_NUMBER, position + 1);
                 fragment.setArguments(args);
                 return fragment;
             case 1:
                 Fragment fragment2 = new RadarFragment_();
                 Bundle args2 = new Bundle();
-                args2.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+                args2.putInt(CitySectionFragment.ARG_SECTION_NUMBER, position + 1);
                 fragment2.setArguments(args2);
                 return fragment2;
         }

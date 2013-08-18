@@ -6,5 +6,7 @@
 
     <string name="tab_title_current_city">City</string>
     <string name="tab_title_radar">Radar</string>
+    <string name="url_radar_images">
+        <![CDATA[http://www.dmi.dk/vejr/maalinger/radar-nedboer/?type=10850&tx_dmiradar_radar%5Baction%5D=ajaxRadarDataRequest&tx_dmiradar_radar%5Bcontroller%5D=Radar&cHash=f56e81dda6e1a30ce03de745951f8eb1&tx_dmiradar_radar[streamId]=3&tx_dmiradar_radar[nOfImages]=18]]></string>
 
 </resources>

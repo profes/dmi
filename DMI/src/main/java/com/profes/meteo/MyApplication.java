@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
@@ -14,9 +15,8 @@ import org.androidannotations.annotations.EApplication;
 @EApplication
 public class MyApplication extends Application {
 
+    private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-
-    private final LruCache<String, Bitmap> mImageCache = new LruCache<String, Bitmap>(20);
 
     public void onCreate() {
         super.onCreate();
@@ -26,9 +26,13 @@ public class MyApplication extends Application {
     @Background
     void initSomeStuff() {
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        VolleyLog.setTag("com.profes.volley");
+
+        mRequestQueue = Volley.newRequestQueue(this);
 
         ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
+            private final LruCache<String, Bitmap> mImageCache = new LruCache<String, Bitmap>(20);
+
             @Override
             public void putBitmap(String key, Bitmap value) {
                 mImageCache.put(key, value);
@@ -40,10 +44,14 @@ public class MyApplication extends Application {
             }
         };
 
-        mImageLoader = new ImageLoader(queue, imageCache);
+        mImageLoader = new ImageLoader(mRequestQueue, imageCache);
     }
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
+    }
+
+    public RequestQueue getRequestQueue() {
+        return mRequestQueue;
     }
 }

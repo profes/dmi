@@ -26,19 +26,24 @@ configurations {
 
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.1"
+    compileSdkVersion 19
+    buildToolsVersion "19"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 18
+        targetSdkVersion 19
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
 
 dependencies {
-    compile 'com.android.support:support-v4:13.0.+'
-    compile 'com.google.android.gms:play-services:3.2.+'
+    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.google.android.gms:play-services:4.0.+'
     apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
     compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
     compile 'com.google:volley:1.0.0'
